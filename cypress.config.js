@@ -7,5 +7,6 @@ module.exports = defineConfig({
     },
     specPattern: 'cypress/e2e/**/*.{js,jsx}',
     chromeWebSecurity: false,
+    experimentalSessionAndOrigin: true,
   },
 })

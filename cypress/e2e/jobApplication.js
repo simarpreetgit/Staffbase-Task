@@ -6,7 +6,7 @@ describe('verify the Staffbase job portal.', () => {
       globalThis.data = data
     })
   })
-  it('Should  be able to submit a job application successfully.', () => {
+  it('Should be able to submit a job application successfully.', () => {
     //cy.viewport(1000, 600)
     cy.visit('https://staffbase.com/jobs/quality-assurance-engineer-2021_1730')
     // Handle cookies popup
@@ -14,7 +14,7 @@ describe('verify the Staffbase job portal.', () => {
     cy.get('.bg-yellow-staffbase').eq(1).click()
     cy.url().should('include', 'apply')
     //wait for linkedIn (post api) to load iframe that depends on net speed
-    cy.wait(5000)
+    cy.wait(2000)
     //Using customcommand to loacte iframe
     cy.iframejobApplication()
       .find('#first_name')
@@ -53,9 +53,47 @@ describe('verify the Staffbase job portal.', () => {
       .type("No I don't require sponsorship ")
     cy.iframejobApplication()
       .find('#job_application_answers_attributes_2_text_value')
-      .type('123')
-    // cy.iframeApplication().find('#submit_app').click()
+      .type(
+        'https://github.com/simarpreetgit/Staffbase-Task/tree/main/cypress/e2e',
+      )
+    cy.iframeApplication().find('#submit_app').click()
+  })
 
-    cy.iframejobApplication().find('#apply-with-linkedin').click()
+  it('Should not be able to submit a job application successfully', () => {
+    cy.visit(
+      'https://staffbase.com/jobs/quality-assurance-engineer-2021_1730/apply',
+    )
+    cy.get('#onetrust-accept-btn-handler').click()
+    cy.wait(2000)
+    cy.iframejobApplication().find('#submit_app').click()
+    cy.iframejobApplication()
+      .find('#first_name_error')
+      .should('have.text', 'First Name is required.')
+
+    cy.iframejobApplication()
+      .find('#last_name_error')
+      .should('have.text', 'Last Name is required.')
+
+    cy.iframejobApplication()
+      .find('#email_error')
+      .should('have.text', 'Email is required.')
+
+    cy.iframejobApplication()
+      .find('#phone_error')
+      .should('have.text', 'Phone is required.')
+
+    cy.iframejobApplication()
+      .find('#validate_resume_error')
+      .should('have.text', 'Resume/CV is required.')
+
+    cy.iframejobApplication()
+      .find(
+        '#job_application_answers_attributes_1_answer_selected_options_attributes_1_question_option_id_error',
+      )
+      .should('have.text', 'This field is required.')
+
+    cy.iframejobApplication()
+      .find('#job_application_answers_attributes_2_text_value_error')
+      .should('have.text', 'This field is required.')
   })
 })
