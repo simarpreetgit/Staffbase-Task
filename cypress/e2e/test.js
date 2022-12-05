@@ -1,53 +1,19 @@
 /// <reference types = "Cypress" />
 
-describe('testing staff base ui', () => {
-  it('clicking on attach button', () => {
-    cy.viewport(1000, 600)
-    cy.visit('https://staffbase.com/jobs/quality-assurance-engineer-2021_1730')
-    cy.get('#onetrust-accept-btn-handler').click()
-    cy.get('.bg-yellow-staffbase').eq(1).click()
-    cy.url().should('include', 'apply')
-    //cy.get('#onetrust-accept-btn-handler').click()
+describe('verify the Staffbase job portal.', () => {
+  before(() => {
+    cy.fixture('userdetails').then((data) => {
+      globalThis.data = data
+    })
+  })
+  it('Should  be able to submit a job application successfully.', () => {
+    //cy.viewport(1000, 600)
+    cy.visit(
+      'https://staffbase.com/jobs/quality-assurance-engineer-2021_1730/apply',
+    )
     cy.wait(10000)
-    // cy.get('#grnhse_iframe').then(($iframe) => {
-    //   const body = $iframe.contents().find('body')
-    //   cy.wrap(body).as('iframe')
-    // })
-    // cy.log('@iframe').find('#first_name').type('simar')
-    // cy.get('#grnhse_iframe')
-    //   .its('0.contentDocument.body')
-    //   .then(cy.wrap)
-    cy.iframeApplication()
-      .find('#first_name')
-      .type('simar')
-      .should('be.visible')
-    cy.iframeApplication().find('#last_name').type('singh').should('be.visible')
-    cy.iframeApplication()
-      .find('#email')
-      .type('singh@gmail.com')
-      .should('be.visible')
-    cy.iframeApplication().find('#phone').type('9877866').should('be.visible')
-    // cy.iframeApplication()
-    //   .find('.link-container')
-    //   .eq(0)
-    //   .selectFile('cypress/fixtures/Classicburger.jpg')
-
-    cy.iframeApplication()
-      .find('.select2-choice')
-      .click()
-      .then(() => {
-        cy.iframeApplication()
-          .find('.select2-match')
-          .eq(1)
-          .click({ force: true })
-      })
-
-    cy.iframeApplication()
-      .find('#job_application_answers_attributes_0_text_value')
-      .type("No I don't require sponsorship ")
-    cy.iframeApplication()
-      .find('#job_application_answers_attributes_2_text_value')
-      .type('123')
-    // cy.iframeApplication().find('#submit_app').click()
+    //Using customcommand to loacte iframe
+    cy.get('#onetrust-accept-btn-handler').click()
+    cy.iframeLinkedin().find('#apply-with-linkedin').click()
   })
 })

@@ -23,6 +23,9 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.add('iframeApplication', () => {
+Cypress.Commands.add('iframejobApplication', () => {
   cy.get('#grnhse_iframe').its('0.contentDocument.body').then(cy.wrap)
+})
+Cypress.Commands.add('iframeLinkedin', () => {
+  cy.get('#grnhse_app').its('0.contentDocument.body').then(cy.wrap)
 })
