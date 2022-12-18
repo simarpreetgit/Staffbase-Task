@@ -56,7 +56,7 @@ describe('verify the Staffbase job portal.', () => {
       .type(
         'https://github.com/simarpreetgit/Staffbase-Task/tree/main/cypress/e2e',
       )
-    cy.iframeApplication().find('#submit_app').click()
+    cy.iframejobApplication().find('#submit_app').click()
   })
 
   it('Should not be able to submit a job application successfully', () => {
