@@ -11,7 +11,7 @@ describe('verify the Staffbase job portal.', () => {
     cy.visit('https://staffbase.com/jobs/quality-assurance-engineer-2021_1730')
     // Handle cookies popup
     cy.get('#onetrust-accept-btn-handler').click()
-    cy.get('.bg-yellow-staffbase').eq(1).click()
+    cy.get('.bg-yellow-staffbase:visible').click()
     cy.url().should('include', 'apply')
     //wait for linkedIn (post api) to load iframe that depends on net speed
     cy.wait(2000)
