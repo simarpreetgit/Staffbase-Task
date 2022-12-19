@@ -57,6 +57,10 @@ describe('verify the Staffbase job portal.', () => {
         'https://github.com/simarpreetgit/Staffbase-Task/tree/main/cypress/e2e',
       )
     cy.iframejobApplication().find('#submit_app').click()
+    cy.wait(2000)
+    cy.iframejobApplication()
+      .find('#application_confirmation')
+      .should('include.text', 'Thank you for applying')
   })
 
   it('Should not be able to submit a job application successfully', () => {
@@ -85,7 +89,7 @@ describe('verify the Staffbase job portal.', () => {
     cy.iframejobApplication()
       .find('#validate_resume_error')
       .should('have.text', 'Resume/CV is required.')
-
+    cy.wait(2000)
     cy.iframejobApplication()
       .find(
         '#job_application_answers_attributes_1_answer_selected_options_attributes_1_question_option_id_error',
