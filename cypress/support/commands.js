@@ -26,3 +26,19 @@
 Cypress.Commands.add('iframejobApplication', () => {
   cy.get('#grnhse_iframe').its('0.contentDocument.body').then(cy.wrap)
 })
+
+Cypress.Commands.add('iframeforlinkedin', () => {
+  cy.get('#grnhse_iframe').within(($iframe) => {
+    const [grnhse_iframe] = $iframe.get()
+
+    grnhse_iframe.contentDocument.body
+      .getElementsByTagName('iframe')[0]
+      .contentDocument.body.querySelector('button#apply-with-linkedin')
+  })
+})
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // returning false here prevents Cypress from
+  // failing the test
+  return false
+})

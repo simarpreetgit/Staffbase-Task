@@ -7,15 +7,15 @@ describe('verify the Staffbase job portal via linkedIn.', () => {
       'http://staffbase.com/jobs/quality-assurance-engineer-2021_1730/apply',
     )
     cy.wait(2000)
-    //Using customcommand to loacte iframe
     cy.get('#onetrust-accept-btn-handler').click()
-    cy.get('#grnhse_iframe').within(($iframe) => {
-      const [grnhse_iframe] = $iframe.get()
-
-      grnhse_iframe.contentDocument.body
-        .getElementsByTagName('iframe')[0]
-        .contentDocument.body.querySelector('button#apply-with-linkedin')
-        .click()
+    //Using customcommand to loacte iframe
+    cy.iframeforlinkedin().click()
+    const newUrl = 'https://www.linkedin.com/'
+    cy.window().then((win) => {
+      win.location.href = newUrl
     })
+    cy.get('#email-or-phone').type('9898909')
+    cy.get('#password').type('testing')
+    cy.get('#join-form-submit').click()
   })
 })
