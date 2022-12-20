@@ -33,9 +33,9 @@ describe('verify the Staffbase job portal.', () => {
       .type(data.phone)
       .should('be.visible')
     cy.iframejobApplication()
-      .find('.link-container')
+      .find("input[type='file']")
       .eq(0)
-      .type('From Simarpreet Singh automation')
+      .selectFile('cypress/fixtures/simar.pdf', { force: true })
 
     //Using promise to alocate the child element to visible
     cy.iframejobApplication()
