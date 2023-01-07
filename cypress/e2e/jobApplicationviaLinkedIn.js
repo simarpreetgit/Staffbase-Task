@@ -8,8 +8,7 @@ describe('verify the Staffbase job portal via linkedIn.', () => {
     )
     cy.wait(2000)
     cy.get('#onetrust-accept-btn-handler').click()
-    //Using customcommand to loacte iframe
-    cy.iframeforlinkedin().click()
+
     const newUrl = 'https://www.linkedin.com/'
     cy.window().then((win) => {
       win.location.href = newUrl
