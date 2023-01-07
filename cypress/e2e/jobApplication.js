@@ -56,7 +56,7 @@ describe('verify the Staffbase job portal.', () => {
         'https://github.com/simarpreetgit/Staffbase-Task/tree/main/cypress/e2e',
       )
     cy.iframejobApplication().find('#submit_app').click()
-    // cy.wait(2000)
+    cy.wait(2000)
     cy.iframejobApplication()
       .find('#application_confirmation')
       .should('include.text', 'Thank you for applying')
