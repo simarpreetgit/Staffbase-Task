@@ -36,16 +36,11 @@ describe('verify the Staffbase job portal.', () => {
       .find("#s3_upload_for_resume input[type='file']")
       .selectFile('cypress/fixtures/simar.pdf', { force: true })
 
-    //Using promise to alocate the child element to visible
     cy.iframejobApplication()
-      .find('.select2-choice')
-      .click()
-      .then(() => {
-        cy.iframejobApplication()
-          .find('.select2-match')
-          .eq(1)
-          .click({ force: true })
-      })
+      .find(
+        '#job_application_answers_attributes_1_answer_selected_options_attributes_1_question_option_id',
+      )
+      .select('Yes', { force: true })
 
     cy.iframejobApplication()
       .find('#job_application_answers_attributes_0_text_value')
