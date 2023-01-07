@@ -1,4 +1,4 @@
-/// <reference types = "Cypress" />
+/// <reference types = "cypress" />
 
 describe('verify the Staffbase job portal via linkedIn.', () => {
   it('Should be able to submit a job application via linkedLin button.', () => {
