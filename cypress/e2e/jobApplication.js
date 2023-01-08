@@ -1,4 +1,5 @@
 /// <reference types = "cypress" />
+import Applicationform from '../pageObjects/Applicationform'
 
 describe('verify the Staffbase job portal.', () => {
   before(() => {
@@ -8,6 +9,7 @@ describe('verify the Staffbase job portal.', () => {
   })
   it.only('Should be able to submit a job application successfully.', () => {
     //cy.viewport(1000, 600)
+
     cy.visit('https://staffbase.com/jobs/quality-assurance-engineer-2021_1730')
     // Handle cookies popup
     cy.get('#onetrust-accept-btn-handler').click()
@@ -15,29 +17,16 @@ describe('verify the Staffbase job portal.', () => {
     cy.url().should('include', 'apply')
     //wait for linkedIn (post api) to load iframe that depends on net speed
     cy.wait(2000)
-    //Using customcommand to loacte iframe
-    cy.iframejobApplication()
-      .find('#first_name')
-      .type(data.first_name)
-      .should('be.visible')
-    cy.iframejobApplication()
-      .find('#last_name')
-      .type(data.last_name)
-      .should('be.visible')
-    cy.iframejobApplication()
-      .find('#email')
-      .type(data.email)
-      .should('be.visible')
-    cy.iframejobApplication()
-      .find('#phone')
-      .type(data.phone)
-      .should('be.visible')
-    cy.iframejobApplication()
-      .find("#s3_upload_for_resume input[type='file']")
+    //Using pageObjects model
+    const applicationform = new Applicationform()
+    applicationform.getFirstName().type(data.first_name).should('be.visible')
+    applicationform.getLastName().type(data.last_name).should('be.visible')
+    applicationform.getEmail().type(data.email).should('be.visible')
+    applicationform.getPhone().type(data.phone).should('be.visible')
+    applicationform
+      .getResume()
       .selectFile('cypress/fixtures/simar.pdf', { force: true })
-    cy.iframejobApplication()
-      .find('#job_application_answers_attributes_0_text_value')
-      .type("No I don't require sponsorship ")
+
     cy.iframejobApplication()
       .find(
         '#job_application_answers_attributes_1_answer_selected_options_attributes_1_question_option_id',
