@@ -13,7 +13,27 @@ class Applicationform {
     return cy.iframejobApplication().find('#phone')
   }
   getResume() {
-    cy.iframejobApplication().find("#s3_upload_for_resume input[type='file']")
+    return cy
+      .iframejobApplication()
+      .find("#s3_upload_for_resume input[type='file']")
+  }
+  getAcknowledgement() {
+    return cy
+      .iframejobApplication()
+      .find(
+        '#job_application_answers_attributes_1_answer_selected_options_attributes_1_question_option_id',
+      )
+  }
+  getGithubProfile() {
+    return cy
+      .iframejobApplication()
+      .find('#job_application_answers_attributes_2_text_value')
+  }
+  getSubmitButton() {
+    return cy.iframejobApplication().find('#submit_app')
+  }
+  getConfirmation() {
+    return cy.iframejobApplication().find('#application_confirmation')
   }
 }
 

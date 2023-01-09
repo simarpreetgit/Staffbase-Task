@@ -9,7 +9,6 @@ describe('verify the Staffbase job portal.', () => {
   })
   it.only('Should be able to submit a job application successfully.', () => {
     //cy.viewport(1000, 600)
-
     cy.visit('https://staffbase.com/jobs/quality-assurance-engineer-2021_1730')
     // Handle cookies popup
     cy.get('#onetrust-accept-btn-handler').click()
@@ -26,21 +25,19 @@ describe('verify the Staffbase job portal.', () => {
     applicationform
       .getResume()
       .selectFile('cypress/fixtures/simar.pdf', { force: true })
-
-    cy.iframejobApplication()
-      .find(
-        '#job_application_answers_attributes_1_answer_selected_options_attributes_1_question_option_id',
-      )
-      .select('Yes', { force: true })
-    cy.iframejobApplication()
-      .find('#job_application_answers_attributes_2_text_value')
+    applicationform.getAcknowledgement().select('Yes', { force: true })
+    applicationform
+      .getGithubProfile()
       .type(
         'https://github.com/simarpreetgit/Staffbase-Task/tree/main/cypress/e2e',
       )
-    cy.iframejobApplication().find('#submit_app').click()
+    applicationform.getSubmitButton().click()
+
+    //wait for page load (external HTMl)
     cy.wait(2000)
-    cy.iframejobApplication()
-      .find('#application_confirmation')
+
+    applicationform
+      .getConfirmation()
       .should('include.text', 'Thank you for applying')
   })
 
@@ -50,7 +47,8 @@ describe('verify the Staffbase job portal.', () => {
     )
     cy.get('#onetrust-accept-btn-handler').click()
     cy.wait(2000)
-    cy.iframejobApplication().find('#submit_app').click()
+    applicationform.getSubmitButton().click()
+
     cy.iframejobApplication()
       .find('#first_name_error')
       .should('have.text', 'First Name is required.')
@@ -70,7 +68,9 @@ describe('verify the Staffbase job portal.', () => {
     cy.iframejobApplication()
       .find('#validate_resume_error')
       .should('have.text', 'Resume/CV is required.')
+
     cy.wait(2000)
+
     cy.iframejobApplication()
       .find(
         '#job_application_answers_attributes_1_answer_selected_options_attributes_1_question_option_id_error',
